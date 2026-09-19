@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+:root {
+  --bg-void: #0a0b0d;
+  --bg-surface: #121317;
+  --bg-surface-2: #191b20;
+  --bg-glass: rgba(255, 255, 255, 0.035);
+  --border-hair: rgba(255, 255, 255, 0.09);
+  --border-hair-strong: rgba(255, 255, 255, 0.16);
+
+  --text-primary: #edeef1;
+  --text-secondary: #9aa0ac;
+  --text-tertiary: #5b616d;
+
+  --accent: #ff7a45;
+  --accent-from: #ff4d5e;
+  --accent-to: #ffb23f;
+  --accent-soft: rgba(255, 122, 69, 0.12);
+  --accent-line: rgba(255, 122, 69, 0.35);
+  --accent-ink: #200b02;
+
+  --status: #4ade80;
+}
+
+@theme inline {
+  --color-void: var(--bg-void);
+  --color-surface: var(--bg-surface);
+  --color-surface-2: var(--bg-surface-2);
+  --color-glass: var(--bg-glass);
+  --color-hair: var(--border-hair);
+  --color-hair-strong: var(--border-hair-strong);
+
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-tertiary: var(--text-tertiary);
+
+  --color-accent: var(--accent);
+  --color-accent-from: var(--accent-from);
+  --color-accent-to: var(--accent-to);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-accent-ink: var(--accent-ink);
+
+  --color-status: var(--status);
+
+  --font-display: "Avenir Next", "Segoe UI", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html {
+  background: var(--bg-void);
+}
+
+body {
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Visible focus states for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Ambient dot-grid backdrop, subtle circuit texture */
+.grid-veil {
+  background-image: radial-gradient(var(--border-hair) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+.glass-panel {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-hair);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.accent-gradient {
+  background: linear-gradient(120deg, var(--accent-from), var(--accent-to));
+}
+
+.accent-gradient-text {
+  background: linear-gradient(120deg, var(--accent-from), var(--accent-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.glow-circle {
+  background: radial-gradient(circle at 50% 45%, var(--accent-to) 0%, var(--accent-from) 45%, transparent 72%);
+  filter: blur(2px);
+}
+
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.blink-cursor::after {
+  content: "";
+  display: inline-block;
+  width: 0.5ch;
+  margin-left: 2px;
+  border-right: 2px solid var(--accent);
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+.animate-float {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.9s ease both;
+}
+
+/* Scrollbar, kept subtle and on-theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface-2);
+  border-radius: 999px;
+  border: 2px solid var(--bg-void);
+}
