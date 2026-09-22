@@ -41,16 +41,25 @@ export default function ContactForm() {
     }
 
     setStatus("loading");
-    try {
-      // Wire this up to an API route (e.g. app/api/contact/route.ts) or a
-      // Supabase `insert` call once a backend is connected. Kept as a
-      // simulated request for now so the form works out of the box.
-      await new Promise((resolve) => setTimeout(resolve, 900));
-      setStatus("success");
-      form.reset();
-    } catch {
-      setStatus("error");
-    }
+try {
+  const res = await fetch("/api/contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    }),
+  });
+
+  if (!res.ok) throw new Error("Failed to send");
+
+  setStatus("success");
+  form.reset();
+} catch {
+  setStatus("error");
+}
   }
 
   const fieldClass = (hasError: boolean) =>
